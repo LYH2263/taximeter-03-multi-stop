@@ -1,6 +1,7 @@
 from app.db import connect
 from app.engines.night_compare import compare_day_night
 from app.engines.tariff_breakdown import calc_fare
+from app.modules.multi_stop import calc_multi_stop
 from app.repositories import runs, settings, tariff, trips
 
 class TaxiService:
@@ -22,6 +23,11 @@ class TaxiService:
         t = tariff.get_active(self._c)
         r = compare_day_night(distance_km, slow_min, t)
         rid = runs.insert(self._c, "compare", {"distance_km": distance_km, "slow_min": slow_min}, r, None) if persist else None
+        return {"run_id": rid, **r}
+    def multi_fare(self, segments, night, persist):
+        t = tariff.get_active(self._c)
+        r = calc_multi_stop(segments, night, t)
+        rid = runs.insert(self._c, "multi_stop", {"segments": r["segments"], "night": night}, r, None) if persist else None
         return {"run_id": rid, **r}
     def dashboard(self):
         items = trips.list_all(self._c)

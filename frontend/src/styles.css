@@ -12,5 +12,7 @@ button { background:var(--accent); border:0; padding:0.4rem 0.8rem; border-radiu
 table { width:100%; border-collapse:collapse; }
 th,td { border-bottom:1px solid #443820; padding:0.35rem; }
 .hero-num { font-size:2rem; color:var(--accent); font-weight:700; }
+.stop-row { display:flex; align-items:center; gap:0.6rem; margin-bottom:0.4rem; }
+.reject { color:#ff7a5c; font-weight:700; }
 input { background:#120e06; border:1px solid var(--muted); color:var(--text); padding:0.3rem; }
 a { color: var(--accent); }
